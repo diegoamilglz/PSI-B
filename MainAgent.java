@@ -7,6 +7,7 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
+import agents.RandomAgent;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class MainAgent extends Agent {
     private GUI gui;
     private AID[] playerAgents;
     private AID[] playerRemoved = new AID[50];
+    //ArrayList<PlayerInformation> players = new ArrayList<>();
     private GameParametersStruct parameters = new GameParametersStruct();
     //int R,N;
 
@@ -136,6 +138,15 @@ public class MainAgent extends Agent {
         }
     }
 
+    public void resetPlayers () {
+
+        /*for (PlayerInformation player : players) {
+
+            player.payoff = 0;
+            //gui.updatePlayer(player.id);
+        }*/
+    }
+
     // public void setPayoff0(){
     //     for (PlayerInformation player : players){
     //           player.payoff=0;
@@ -153,11 +164,12 @@ public class MainAgent extends Agent {
      * rounds.
      */
     private class GameManager extends SimpleBehaviour {
-
+        int bestP = 0;
         @Override
+        
         public void action() {
             //Assign the IDs
-           ArrayList<PlayerInformation> players = new ArrayList<>();
+            ArrayList<PlayerInformation> players = new ArrayList<>();
             int lastId = 0;
             gameStopped = false;
             for (AID a : playerAgents) {
@@ -171,6 +183,7 @@ public class MainAgent extends Agent {
                 msg.addReceiver(player.aid);
                 send(msg);
             }
+            resetPlayers();
             //Organize the matches
             for (int i = 0; i < players.size(); i++) {
                 for (int j = i + 1; j < players.size(); j++) {
@@ -191,6 +204,17 @@ public class MainAgent extends Agent {
                     }
                 }
             }
+            for (int i = 1; i < players.size (); i++) {
+
+                if (players.get (i).payoff > players.get (bestP).payoff) {
+
+                    bestP = i;
+                }
+            }
+            System.out.println ("\n\n\n**** WINNER ****");
+            System.out.println ("*          " + players.get (bestP).aid.getName ().split ("@") [0] + ": "+ players.get (bestP).payoff+ "          *");
+            System.out.println ("****************");
+            bestP=0;
         }
 
         private void playGame(PlayerInformation player1, PlayerInformation player2) {

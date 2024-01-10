@@ -1,3 +1,4 @@
+package agents;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -70,16 +71,18 @@ public class RandomAgent extends Agent {
                             boolean parametersUpdated = false;
                             try { 
                                 parametersUpdated = validateSetupMessage(msg);
+                                state = State.s1AwaitingGame;
                             } catch (NumberFormatException e) {
                                 System.out.println(getAID().getName() + ":" + state.name() + " - Bad message");
                             }
-                            if (parametersUpdated) state = State.s1AwaitingGame;
+                            break;
+                            //if (parametersUpdated) state =State.s1AwaitingGame;
 
                         } 
                     
-                        else {
+                        
                             System.out.println(getAID().getName() + ":" + state.name() + " - Unexpected message");
-                        }
+                        
                         break;
                     case s1AwaitingGame:
                         //If INFORM NEWGAME#_,_ PROCESS NEWGAME --> go to state 2
@@ -97,15 +100,17 @@ public class RandomAgent extends Agent {
                                 boolean gameStarted = false;
                                 try {
                                     gameStarted = validateNewGame(msg.getContent());
+                                    state = State.s2Round;
                                 } catch (NumberFormatException e) {
                                     System.out.println(getAID().getName() + ":" + state.name() + " - Bad message");
                                 }
-                                if (gameStarted) state = State.s2Round;
+                                break;
+                                //if (gameStarted) state = State.s2Round;
                             }
                         
-                        } else {
-                            System.out.println(getAID().getName() + ":" + state.name() + " - Unexpected message");
                         }
+                            System.out.println(getAID().getName() + ":" + state.name() + " - Unexpected message");
+                        
                         break;
                     case s2Round:
                         //If REQUEST POSITION --> INFORM POSITION --> go to state 3
@@ -124,23 +129,18 @@ public class RandomAgent extends Agent {
                             state = State.s3AwaitingResult;
                         //} else if (msg.getPerformative() == ACLMessage.INFORM && msg.getContent().startsWith("Changed#")) {
                             // Process changed message, in this case nothing
-                        } else if (msg.getPerformative() == ACLMessage.INFORM && msg.getContent().startsWith("GameOver")) {
-                            //state = State.s1AwaitingGame;
+                        } else if (msg.getPerformative() == ACLMessage.INFORM && msg.getContent().startsWith("GameOver#")) {
+                            state = State.s1AwaitingGame;
                             guardarPayoff(msg.getContent());
                         
-                        } else {
-                            System.out.println(getAID().getName() + ":" + state.name() + " - Unexpected message:" + msg.getContent());
-                        }
+                        } 
                         break;
                     case s3AwaitingResult:
                         if (msg.getPerformative() == ACLMessage.INFORM && msg.getContent().startsWith("Results#")) {
                             //Process results
                             guardarResultado(msg.getContent());
                             state = State.s2Round;
-                        } else {
-                            System.out.println(getAID().getName() + ":" + state.name() + " - Unexpected message");
                         }
-                        break;
                 }
             }
         }
