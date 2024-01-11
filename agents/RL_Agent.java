@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Random;
 import java.util.Vector;
 
-public class mi_RL extends Agent {
+public class RL_Agent extends Agent {
 
     private State state;
     private AID mainAgent;
