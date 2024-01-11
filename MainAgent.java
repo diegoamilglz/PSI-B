@@ -283,7 +283,7 @@ public class MainAgent extends Agent {
                 gui.setPlayerAction(player2.result, r, (player2.id + 1));
 
                 r++;
-                if (r==10)r=0;
+                if (r==30)r=0;
         }
                 gui.setPlayerResult(player1.payoff, (player1.id + 1));
                 gui.setPlayerResult(player2.payoff, (player2.id + 1));

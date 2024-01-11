@@ -66,7 +66,7 @@ public final class GUI extends JFrame implements ActionListener {
     }
 
     public void resetTableInformation(){
-        for (int i = 1; i<=11; i++){
+        for (int i = 1; i<=31; i++){
             for (int j=1; j<=5; j++){
                 payoffTable.setValueAt(0, i, j);
  //               mainAgent.setPayoff0();
@@ -94,7 +94,7 @@ public final class GUI extends JFrame implements ActionListener {
     }
     
     public void setPlayerResult (int resultado, int columna){
-        payoffTable.setValueAt(resultado, 11, columna);
+        payoffTable.setValueAt(resultado, 31, columna);
     }
 
     public void initUI() {
@@ -266,6 +266,26 @@ public final class GUI extends JFrame implements ActionListener {
             {"Round 8", "*", "*", "*", "*", "*"},
             {"Round 9", "*", "*", "*", "*", "*"},
             {"Round 10", "*", "*", "*", "*", "*"},
+            {"Round 11", "*", "*", "*", "*", "*"},
+            {"Round 12", "*", "*", "*", "*", "*"},
+            {"Round 13", "*", "*", "*", "*", "*"},
+            {"Round 14", "*", "*", "*", "*", "*"},
+            {"Round 15", "*", "*", "*", "*", "*"},
+            {"Round 16", "*", "*", "*", "*", "*"},
+            {"Round 17", "*", "*", "*", "*", "*"},
+            {"Round 18", "*", "*", "*", "*", "*"},
+            {"Round 19", "*", "*", "*", "*", "*"},
+            {"Round 20", "*", "*", "*", "*", "*"},
+            {"Round 21", "*", "*", "*", "*", "*"},
+            {"Round 22", "*", "*", "*", "*", "*"},
+            {"Round 23", "*", "*", "*", "*", "*"},
+            {"Round 24", "*", "*", "*", "*", "*"},
+            {"Round 25", "*", "*", "*", "*", "*"},
+            {"Round 26", "*", "*", "*", "*", "*"},
+            {"Round 27", "*", "*", "*", "*", "*"},
+            {"Round 28", "*", "*", "*", "*", "*"},
+            {"Round 29", "*", "*", "*", "*", "*"},
+            {"Round 30", "*", "*", "*", "*", "*"},
             {"Total Payoff", "*", "*", "*", "*", "*"},
     };
         JLabel payoffLabel = new JLabel("Player Results");

@@ -10,7 +10,7 @@ import jade.lang.acl.ACLMessage;
 
 import java.util.Random;
 
-public class RandomAgent extends Agent {
+public class alwD extends Agent {
 
     private State state;
     private AID mainAgent;
@@ -80,6 +80,9 @@ public class RandomAgent extends Agent {
 
                         } 
                     
+                        
+                            System.out.println(getAID().getName() + ":" + state.name() + " - Unexpected message");
+                        
                         break;
                     case s1AwaitingGame:
                         //If INFORM NEWGAME#_,_ PROCESS NEWGAME --> go to state 2
@@ -118,9 +121,7 @@ public class RandomAgent extends Agent {
                             ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                             msg.addReceiver(mainAgent);
                             int opcion= random.nextInt(2);
-                            if (opcion==0) 
-                                msg.setContent("Action#H");
-                            else msg.setContent("Action#D");
+                           msg.setContent("Action#D");
  //                           System.out.println(getAID().getName() + " sent " + msg.getContent());
                             send(msg);
                             state = State.s3AwaitingResult;
